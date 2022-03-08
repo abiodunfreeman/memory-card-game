@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Header from './components/Header';
 import './App.css';
+import Names from "./components/Names";
+import { v4 as uuidv4 } from 'uuid';
 // import Card from './components/card';
 import DisplayCards from './components/DisplayCards';
 function App() {
-  function shuffle( array ) {
+
+  function shuffle( array ) { //shuffle array function
     let currentIndex = array.length, randomIndex;
     //While there remain elements to shuffle...
     while(currentIndex != 0) {
@@ -20,15 +23,34 @@ function App() {
     }
     return array;
 }
-  
+
+function createObjects ( name ) {
+ 
+  return {
+    id: null,
+    clicked: false,
+    name: name,
+    url:  `./images/loading/${name}_0.jpg`
+    } 
+}
+let objectArray = Names.map(name => createObjects( name )) 
+  shuffle(objectArray);
+  objectArray = objectArray.slice(0, 8)
+// console.log(objectArray)
+for (let i = 0; i < objectArray.length; i++) {
+  objectArray[i].id = i;
+}
 
 
-  const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0)
+
+
+ const [toons, setToons] = useState([...objectArray])
+
 
  
-
-
+function handleClick(){
+  console.log('clickedd')
+}
 
 
 
@@ -44,11 +66,12 @@ function App() {
   return (
     <div className="App">
      <Header
-       score={score}
+      
        
      />
      <DisplayCards 
-     setScore={setScore}
+     toons={toons}
+     handleClick={handleClick}
 
                   />
    
