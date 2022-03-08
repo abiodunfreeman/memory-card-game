@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 export default function Card( props ){
-const {name, url, clicked, setScore} = props
-
+const {name, url, setScore, setCardArray, shuffle, revertStatus } = props
+let clicked = props.clicked
 const [status, setStatus] = useState(clicked); //clicked status true or false
+console.log(clicked)
 function handleClick (){
-    console.log('click')
-    setStatus(prevStatus => !prevStatus)
+   
+        setCardArray(prevArray => shuffle(prevArray))
+ 
     
-}
+  }
 
 return(
    

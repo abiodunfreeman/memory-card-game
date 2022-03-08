@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Card from "./card";
+import Names from "./Names";
 import { v4 as uuidv4 } from 'uuid';
 export default function DisplayCards( props ){
-    
+    const [clickedStatus, setClickedStatus] = useState(false)
     const [items, setItems] = useState([]);
     const [numOfCards, setNumOfCards] = useState(8)
     const [error, setError] = useState(null); //catches error for api
     const [isLoaded, setIsLoaded] = useState(false); //determines if api is loaded
-    const list = Object.keys(items)
+    const [cardArray, setCardArray] = useState([]); //empty array for card
+    const list = Names;
+    console.log(list)
     shuffle(list)
     const nameList = list.slice(0,numOfCards)
-
-    useEffect(function (){ //fetches api
-        console.log('useEffect App.js')
-        fetch('http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/champion.json')
-        .then(res => res.json())
-        .then(result => {
-          setIsLoaded(true);
-          setItems(result.data)
-        },
-        (error) => {
-                setIsLoaded(true);
-                setError(error);
-          }
-        )
-      
-      }, [])
+    
+  
    
     function shuffle( array ) {
         let currentIndex = array.length, randomIndex;
@@ -42,45 +31,73 @@ export default function DisplayCards( props ){
         }
         return array;
     }    
-
+  
     const cards = nameList.map(name => {
         return({
           name,
           url:  `./images/loading/${name}_0.jpg`,
-          clicked: false,
+          clicked: true,
         })
       })
-   
+      // console.log(cards)
+      const [cardObjects, setCardObjects] = useState(null)
+      console.log(cardObjects);
   
-   const cardJSX = cards.map( object => {
+     
+   const cardJSXX = cards.map( object => {
        return(
            <Card
-           setScore={props.setScore}
-           shuffle={shuffle}
+             revertStatus={revertStatus}
+                setCardArray={setCardArray}
+                // handleClick={handleClick}
+                setScore={props.setScore}
+                shuffle={shuffle}
                 key={uuidv4()}
-               name={object.name}
-               url={object.url}
-               clicked={object.clicked}
-           />
-       )
+                name={object.name}
+                url={object.url}
+                clicked={object.clicked}
+           />)
    })
+   const [cardJSX , setCardJSX] = useState([...cardJSXX]) 
+   console.log(cardJSX + " !!!!!!!!!!!!!!!! klsjfklsdfj")
+   useEffect(function (){ //fetches api
 
-
-// const letters =['A', 'B', 'C', 'D', 'E']
-// console.log(letters)
-// shuffle(letters)
-// console.log(letters)
-useEffect(() => {
-    console.log('useEffect DisplayCards')
+    // console.log('useEffect App.js')
     
-
+    // fetch('http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/champion.json',{
+    //   mode:'cors'
+    // })
+    // .then(res => res.json())
+    // .then(result => {
+    //   setIsLoaded(true);
+    //   setItems(result.data)
+    // },
+    // (error) => {
+    //         setIsLoaded(true);
+    //         setError(error);
+    //   }
+    // )
    
-},[])
-if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
+
+  setCardObjects(cards)
+  }, [])
+
+function revertStatus(){
+  setCardObjects( prevObjectArray => {
+    const newArray = []
+    prevObjectArray.forEach(object => {
+     
+      object.clicked = false;
+      newArray.push(object)
+      console.log(object)
+      
+    })
+    return newArray;
+  })
+}
+console.log(cardArray)
+
+
     return (
         <div id="DisplayCards">
             {/* <h1>Display</h1> */}
@@ -88,4 +105,3 @@ if (error) {
         </div>
     )
   }
-}
