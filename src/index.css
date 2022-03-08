@@ -1,13 +1,52 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: 0px;
 }
+li {
+  margin-left: 20px;
+}
+#DisplayCards{
+  display:flex;
+  justify-content: center;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  flex-wrap: wrap;
+  /* width: 90vw; */
+  /* height: 100vh; */
+  border: 5px solid green;
+}
+img{
+ 
+  height: auto;
+  width: 120px;
+}
+.card-container{
+  display: flex;
+  
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+  padding: 0 5px;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  /* width: 100px; */
+  height: 250px;
+}
+.card-container:hover{
+  box-shadow: 0 0 20px rgba(209, 212, 7, .9);
+  cursor: pointer;
+}
+.App {
+  border: 5px solid purple;
+}
+header{
+  border: 8px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.clicked{
+  background-color: goldenrod;
+  box-shadow: 0 0 20px rgba(209, 212, 7, .9);
 }
