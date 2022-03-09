@@ -7,13 +7,16 @@ li {
   margin-left: 20px;
 }
 #DisplayCards{
-  display:flex;
-  justify-content: center;
-
-  flex-wrap: wrap;
-  /* width: 90vw; */
-  /* height: 100vh; */
-  border: 5px solid green;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+  /* border: 3px solid green; */
+  
+ 
+ 
+  
+  margin-left: 30%;
+ 
 }
 img{
  
@@ -27,24 +30,29 @@ img{
   align-items: center;
   margin: 5px;
   padding: 0 5px;
-  background-color: black;
+  /* background-color: black; */
   color: white;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   /* width: 100px; */
   height: 250px;
 }
 .card-container:hover{
-  box-shadow: 0 0 20px rgba(209, 212, 7, .9);
+  
+  box-shadow: 0 0 20px rgba(209, 212, 7);
   cursor: pointer;
 }
 .App {
-  border: 5px solid purple;
-}
-header{
-  border: 8px solid black;
+  /* border: 5px solid purple; */
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+header{
+  /* border: 8px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2%;
 }
 .clicked{
   background-color: goldenrod;

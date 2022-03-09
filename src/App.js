@@ -33,9 +33,11 @@ function createObjects ( name ) {
     url:  `./images/loading/${name}_0.jpg`
     } 
 }
+const [numberOfCards, setNumberOfCards] = useState(9)
 let objectArray = Names.map(name => createObjects( name )) 
   shuffle(objectArray);
-  objectArray = objectArray.slice(0, 8)
+
+  let slicedArray = objectArray.slice(0, numberOfCards)
 // console.log(objectArray)
 for (let i = 0; i < objectArray.length; i++) {
   objectArray[i].id = i;
@@ -44,9 +46,9 @@ for (let i = 0; i < objectArray.length; i++) {
 
 
 
- const [toons, setToons] = useState([...objectArray])
+ const [toons, setToons] = useState([...slicedArray])
  const [score, setScore] = useState(0);
-
+ const [best, setBest] = useState(0);
  function handleClick(id,name,clicked){
   
   if (toons[id].clicked === false ) {
@@ -56,6 +58,8 @@ for (let i = 0; i < objectArray.length; i++) {
   })
   
   setScore(prevScore => prevScore + 1)
+
+  
   } else if (toons[id].clicked === true) {
     console.log(name + ' is already clicked')
     setScore(0)
@@ -85,14 +89,20 @@ for (let i = 0; i < objectArray.length; i++) {
 
 }
 function shuffleCards(id){
-  console.log(cards[id].props.id)
-  setCards(prevCards => shuffle(prevCards))
-  console.log(cards[id].props.name)
+  
+  // setCards(prevCards => shuffle(prevCards))
+  setCards(prevCards => {
+    shuffle(prevCards);
+    return prevCards
+  })
+  // console.log(cards[id].props.id)
+  // console.log(cards[id].props.name)
   
 }
- 
+const [cheat, setCheat] = useState(true); //shows 'clicked/not clicked' on cards if true
  const [cards,setCards] = useState(toons.map(object => {
   return <Card
+        cheat={cheat}
         key={object.name}
         url={object.url}
         clicked={object.clicked}
@@ -114,23 +124,38 @@ useEffect(() => {
 
 
 
-// console.log(cards)
 
-
+function toggleCheat(){
+  setCheat(prevCheat => !prevCheat)
+}
+function changeNumber(number){
+  console.log(number)
+  setNumberOfCards(number)
+  console.log(numberOfCards)
+}
 
   return (
     <div className="App">
+    <div id="yep">
      <Header
+      best={best}
       score={score}
        
      />
-     <DisplayCards 
-     cards={cards}
-    
-     handleClick={handleClick}
-
-                  />
-   
+     <div id="display-container">
+            <DisplayCards 
+              cards={cards}
+                handleClick={handleClick}
+             />
+             {/* <div id="inputs">
+               <button onClick={() => changeNumber(4)}>Easy</button>
+               <button onClick={() => changeNumber(8)}>Medium</button>
+               <button onClick={() => changeNumber(16)}>Hard</button>
+               <button onClick={toggleCheat}>Cheat</button>
+             </div> */}
+     </div>
+     
+     </div>
      
     </div>
     );
