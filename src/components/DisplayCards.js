@@ -3,17 +3,9 @@ import Card from "./card";
 
 import { v4 as uuidv4 } from 'uuid';
 export default function DisplayCards( props ){
-   const {toons } = props
+   const {cards } = props
    
-  const cards = toons.map(object => {
-    return <Card
-          key={object.id}
-          url={object.url}
-          clicked={object.clicked}
-          id={object.id}
-          name={object.name}
-    />
-  })
+  
  
     // function shuffle( array ) {
     //     let currentIndex = array.length, randomIndex;

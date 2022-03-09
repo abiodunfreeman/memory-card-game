@@ -4,7 +4,7 @@ import Header from './components/Header';
 import './App.css';
 import Names from "./components/Names";
 import { v4 as uuidv4 } from 'uuid';
-// import Card from './components/card';
+import Card from './components/card';
 import DisplayCards from './components/DisplayCards';
 function App() {
 
@@ -45,13 +45,68 @@ for (let i = 0; i < objectArray.length; i++) {
 
 
  const [toons, setToons] = useState([...objectArray])
+ const [score, setScore] = useState(0);
 
+ function handleClick(id,name,clicked){
+  
+  if (toons[id].clicked === false ) {
+  setToons(prevToons => {
+    prevToons[id].clicked = true;
+    return prevToons;
+  })
+  
+  setScore(prevScore => prevScore + 1)
+  } else if (toons[id].clicked === true) {
+    console.log(name + ' is already clicked')
+    setScore(0)
+    setToons(prevToons => {
+      prevToons.forEach(toon => {
+        toon.clicked = false;
+      })
+      return prevToons;
+    })
+  }
 
+  setCards(prevCards => {
+    const newCards = toons.map(object => {
+      return <Card
+       key={object.name}
+        url={object.url}
+        clicked={object.clicked}
+        id={object.id}
+        name={object.name}
+        handleClick={handleClick}
+  />
+    })
+    return newCards;
+  })
  
-function handleClick(){
-  console.log('clickedd')
-}
+  shuffleCards(id);
 
+}
+function shuffleCards(id){
+  console.log(cards[id].props.id)
+  setCards(prevCards => shuffle(prevCards))
+  console.log(cards[id].props.name)
+  
+}
+ 
+ const [cards,setCards] = useState(toons.map(object => {
+  return <Card
+        key={object.name}
+        url={object.url}
+        clicked={object.clicked}
+        id={object.id}
+        name={object.name}
+        handleClick={handleClick}
+  />
+})
+ )
+ 
+
+useEffect(() => {
+  console.log('render')
+},[...toons])
 
 
 
@@ -66,11 +121,12 @@ function handleClick(){
   return (
     <div className="App">
      <Header
-      
+      score={score}
        
      />
      <DisplayCards 
-     toons={toons}
+     cards={cards}
+    
      handleClick={handleClick}
 
                   />
