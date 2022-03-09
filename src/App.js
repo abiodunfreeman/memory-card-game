@@ -154,7 +154,7 @@ function changeNumber(number){
                <button onClick={toggleCheat}>Cheat</button>
              </div> */}
      </div>
-     
+     <footer >Made by Odun Freeman</footer>
      </div>
      
     </div>
