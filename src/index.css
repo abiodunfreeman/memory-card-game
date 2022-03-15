@@ -55,6 +55,6 @@ header{
   margin-bottom: 2%;
 }
 .clicked{
-  background-color: goldenrod;
-  box-shadow: 0 0 20px rgba(209, 212, 7, .9);
+  /* background-color: goldenrod;
+  box-shadow: 0 0 20px rgba(209, 212, 7, .9); */
 }
